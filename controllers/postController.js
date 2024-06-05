@@ -45,6 +45,18 @@ const deletepost = async (req, res) => {
     }
 };
 
+const deletePostsOfUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const deletedPosts = await postModel.deleteMany({ userid: id });
+        res.json(deletedPosts);
+    } catch (error) {
+        console.error('Error deleting posts:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 const updatepost = async (req, res) => {
     try {
         const id = req.params.id;

@@ -14,7 +14,7 @@ const loginController = async (req, res) => {
         // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ error: 'Invalid Password' });
+            return res.status(402).json({ error: 'Invalid Password' });
         }
 
         res.json({ message: 'Login successful', user });
