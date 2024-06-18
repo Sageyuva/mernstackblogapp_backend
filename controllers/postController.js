@@ -26,10 +26,10 @@ const fetchallposts = async (req, res) => {
 const fetchonepost = async (req, res) => {
     try {
         const id = req.params.id
-        const thatpost = await postModel.find({_id:id});
+        const thatpost = await postModel.findById({_id:id});
         res.json(thatpost);
     } catch (error) {
-        console.error('Error fetching all posts:', error.message);
+        console.error('Error fetching  post:', error.message);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
