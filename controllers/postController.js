@@ -1,5 +1,9 @@
 const postModel = require("../models/postModels");
 
+
+
+
+
 const newpostController = async (req, res) => {
     try {
         const { username, userid, heading, caption, tag } = req.body;
@@ -22,6 +26,19 @@ const fetchallposts = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+const fetchallpostsofUser = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const allposts = await postModel.find({ userid: userId });
+        res.json(allposts);
+    } catch (error) {
+        console.error('Error fetching all posts:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 
 const fetchonepost = async (req, res) => {
     try {
@@ -71,4 +88,4 @@ const updatepost = async (req, res) => {
 };
 
 
-module.exports = { newpostController, fetchallposts , fetchonepost  , deletepost , updatepost};
+module.exports = {fetchallpostsofUser , newpostController, fetchallposts , fetchonepost  , deletepost , updatepost};

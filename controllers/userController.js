@@ -54,6 +54,17 @@ const fetchAllUsersController = async (req, res) => {
     }
 };
 
+const fetchSingleUserController = async (req, res) => {
+    try {
+        const {userId} = req.body;
+        const allUsers = await userModel.find({_id:userId});
+        res.json(allUsers);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 const deleteUser = async(req,res) => {
 
     try {
@@ -67,9 +78,19 @@ const deleteUser = async(req,res) => {
 
 }
 
+const updateUserController = async (req,res) => {
+    try {
+        const id = req.params.id
+        
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     loginController,
     registerController,
     fetchAllUsersController,
-    deleteUser
+    deleteUser,
+    fetchSingleUserController
 };
