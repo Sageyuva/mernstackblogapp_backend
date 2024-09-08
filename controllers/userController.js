@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const userModel = require("../models/userModel");
+const postModel = require("../models/postModels")
 
 const loginController = async (req, res) => {
     try {
@@ -70,6 +71,7 @@ const deleteUser = async(req,res) => {
     try {
         const id = req.params.id
         const thatuser = await userModel.findOneAndDelete({_id: id})
+        const allPosts = await postModel.deleteMany({userid:id})
         res.json("user deleted")
     } catch (error) {
         console.error('Error deleting user:', error.message);
@@ -81,13 +83,17 @@ const deleteUser = async(req,res) => {
 const updateUserController = async (req,res) => {
     try {
         const id = req.params.id
-        
+        const {name, bio} = req.body
+        const thatuser = await userModel.findOneAndUpdate({_id: id},{name , bio})
+        res.json("user updated")
     } catch (error) {
-        
+        console.error('Error updating user:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
 module.exports = {
+    updateUserController ,
     loginController,
     registerController,
     fetchAllUsersController,
