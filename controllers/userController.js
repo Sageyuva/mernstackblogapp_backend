@@ -25,7 +25,7 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, bio , password } = req.body;
 
         // Check if email already exists
         const existingUser = await userModel.findOne({ email });
@@ -38,7 +38,7 @@ const registerController = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create new user with hashed password
-        const newUser = await userModel.create({ name, email, password: hashedPassword });
+        const newUser = await userModel.create({ name,  bio , email, password: hashedPassword });
         res.json(newUser);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
